@@ -1,0 +1,225 @@
+:root {
+    --navy: #ad1457;
+    --blue: #c2185b;
+    --blue-dark: #8e0e47;
+    --amber: #f48fb1;
+    --ink: #49313c;
+    --muted: #7a5a68;
+    --bg: #fff5f8;
+    --card: #ffffff;
+    --line: #f3c4d6;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.65;
+}
+
+a:focus-visible,
+button:focus-visible {
+    outline: 3px solid var(--amber);
+    outline-offset: 3px;
+    border-radius: 6px;
+}
+
+.container {
+    width: min(1120px, 92%);
+    margin: 0 auto;
+}
+
+/* ---------- Navbar ---------- */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--blue);
+    color: #fff;
+    box-shadow: 0 4px 18px rgba(173, 20, 87, 0.25);
+    padding: 0;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 68px;
+}
+
+.navbar a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.15s ease;
+}
+
+.navbar a:hover {
+    color: #fff;
+}
+
+/* Logo / nama brand: link atau elemen pertama di navbar */
+.navbar .container > :first-child,
+.navbar .container > :first-child a {
+    color: #fff;
+    font-weight: 800;
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 56px;
+    align-items: center;
+    padding: 80px 0 96px;
+}
+
+/* Teks kecil "Belajar Web Secara Bertahap" tampil seperti label */
+.hero > div > p:first-child {
+    display: inline-block;
+    margin: 0 0 20px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: #fde4ee;
+    color: var(--navy);
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.hero h1 {
+    margin: 0 0 20px;
+    color: var(--navy);
+    font-size: clamp(2.1rem, 4.6vw, 3.4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+}
+
+.hero p {
+    color: var(--muted);
+    font-size: 1.1rem;
+    max-width: 52ch;
+}
+
+.hero img {
+    display: block;
+    width: 100%;
+    height: auto;
+    padding: 32px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 28px;
+    object-fit: contain;
+    /* bayangan pink solid di belakang logo */
+    box-shadow: 16px 16px 0 var(--amber);
+}
+
+/* ---------- Tombol (opsional: tambahkan class="btn" pada link) ---------- */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 10px;
+    background: var(--blue);
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.btn:hover {
+    background: var(--blue-dark);
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+/* ---------- Daftar kursus ---------- */
+.course-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding-bottom: 72px;
+}
+
+.card {
+    position: relative;
+    background: var(--card);
+    padding: 26px 24px;
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--blue);
+    box-shadow: 0 10px 30px -18px rgba(173, 20, 87, 0.28);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 36px -18px rgba(173, 20, 87, 0.38);
+}
+
+.card small {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: #fde4ee;
+    color: var(--navy);
+    font-weight: 700;
+}
+
+.card h3 {
+    margin: 12px 0 8px;
+    color: var(--navy);
+    font-size: 1.2rem;
+    letter-spacing: -0.01em;
+}
+
+.card p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.97rem;
+}
+
+/* ---------- Responsif ---------- */
+@media (max-width: 960px) {
+    .course-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 760px) {
+    .hero {
+        grid-template-columns: 1fr;
+        gap: 36px;
+        padding: 44px 0 56px;
+    }
+
+    .hero img {
+        max-width: 380px;
+        margin: 0 auto;
+        order: -1;
+        box-shadow: 10px 10px 0 var(--amber);
+    }
+
+    .course-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}
