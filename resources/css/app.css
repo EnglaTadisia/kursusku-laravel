@@ -1,9 +1,41 @@
-@import 'tailwindcss';
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
+@import 'bootstrap/dist/css/bootstrap.min.css';
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+body {
+    background-color: #fff5f8;
+    color: #34303a;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    background: linear-gradient(90deg, #d63384, #f06292) !important;
+    box-shadow: 0 3px 10px rgba(214, 51, 132, 0.15);
+}
+
+.navbar-brand {
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.nav-link {
+    color: white !important;
+}
+
+.nav-link:hover {
+    color: #ffe0ec !important;
+}
+
+.card {
+    border: none;
+    border-radius: 16px;
+}
+
+.btn-success {
+    background-color: #d63384;
+    border-color: #d63384;
+}
+
+.btn-success:hover {
+    background-color: #b8256d;
+    border-color: #b8256d;
 }
