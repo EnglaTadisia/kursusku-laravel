@@ -1,6 +1,6 @@
-
 <?php
 
+use App\Http\Controllers\CourseController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\HomeController;
@@ -57,3 +57,5 @@ Route::get('/courses/{course}/availability', function (int $course) {
 
     return response()->json($availability[$course]);
 })->name('courses.availability');
+
+Route::resource('courses', CourseController::class);

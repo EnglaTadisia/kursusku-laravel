@@ -39,3 +39,81 @@ body {
     background-color: #b8256d;
     border-color: #b8256d;
 }
+
+/* Background halaman */
+body {
+    background-color: #fff5f9;
+    color: #14223f;
+}
+
+/* Navbar */
+.navbar {
+    background: linear-gradient(90deg, #e52e91, #f45ca2) !important;
+}
+
+.navbar-brand,
+.navbar-nav .nav-link {
+    color: white !important;
+    font-weight: 500;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #ffe0ed !important;
+}
+
+/* Judul halaman */
+h1, h2, h3 {
+    color: #333333;
+}
+
+/* Tombol */
+.btn-primary {
+    background-color: #ed3e91 !important;
+    border-color: #ed3e91 !important;
+}
+
+.btn-primary:hover {
+    background-color: #d6297c !important;
+    border-color: #d6297c !important;
+}
+
+/* Tabel */
+table {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+table thead th {
+    background-color: #ffe0ed;
+    color: #333333;
+}
+
+table tbody tr:hover {
+    background-color: #fff0f6;
+}
+
+/* Alert */
+.alert-success {
+    background-color: #fce1ed;
+    border-color: #f5b8d2;
+    color: #a52b65;
+}
+
+/* Card */
+.card {
+    border: 1px solid #f5c5d9;
+    border-radius: 10px;
+}
+
+/* Input */
+.form-control,
+.form-select {
+    border: 1px solid #edb4cc;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #ed3e91;
+    box-shadow: 0 0 0 0.2rem rgba(237, 62, 145, 0.15);
+}
