@@ -1,0 +1,5 @@
+1. AI digunakan untuk membantu memperbaiki error pada Laravel CRUD.
+2. AI membantu merubah css
+3. AI membantu menambahkan validasi input pada form kursus.
+4. AI membantu memperbaiki notifikasi berhasil ditambahkan, diperbarui, dan dihapus.
+5. Semua kode diperiksa dan diuji kembali melalui browser.

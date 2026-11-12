@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('title', 'Daftar Kursus')
@@ -139,6 +140,46 @@
         color: #66566a;
     }
 
+    /* Tombol Detail, Edit, dan Hapus */
+    .action-buttons {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .btn-action {
+        display: inline-block;
+        padding: 7px 10px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: .2s;
+        white-space: nowrap;
+    }
+
+    .btn-detail {
+        background: #e7efff;
+        color: #3465bd;
+    }
+
+    .btn-edit {
+        background: #fff0d9;
+        color: #b7791f;
+    }
+
+    .btn-delete {
+        background: #ffe6e6;
+        color: #cf4141;
+    }
+
+    .btn-action:hover {
+        opacity: .8;
+    }
+
     .empty-course {
         text-align: center;
         color: #999;
@@ -178,6 +219,21 @@
 @section('content')
 
 <div class="course-page">
+    {{-- NOTIFIKASI BERHASIL --}}
+@if (session('success'))
+    <div class="alert alert-success alert-dismissible fade show"
+         role="alert"
+         style="border-radius: 12px; border: 1px solid #f3c1d9; background: #fff0f7; color: #bd2878;">
+
+        <strong>✓ Berhasil!</strong>
+        {{ session('success') }}
+
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="alert">
+        </button>
+    </div>
+@endif
 
     <div class="course-heading">
         <div>
@@ -191,8 +247,11 @@
     </div>
 
     <div class="course-box">
+
         <div class="table-responsive">
+
             <table class="course-table">
+
                 <thead>
                     <tr>
                         <th>Kode</th>
@@ -201,11 +260,14 @@
                         <th>Kuota</th>
                         <th>Tanggal Mulai</th>
                         <th>Status</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
 
                 <tbody>
+
                     @forelse ($courses as $course)
+
                         <tr>
                             <td>
                                 <span class="code-label">
@@ -241,16 +303,57 @@
                                     {{ ucfirst($course->status) }}
                                 </span>
                             </td>
+
+                            {{-- Tombol Aksi --}}
+                            <td>
+                                <div class="action-buttons">
+
+                                    {{-- Detail --}}
+                                    <a href="{{ route('courses.show', $course) }}"
+                                       class="btn-action btn-detail">
+                                        Detail
+                                    </a>
+
+                                    {{-- Edit --}}
+                                    <a href="{{ route('courses.edit', $course) }}"
+                                       class="btn-action btn-edit">
+                                        Edit
+                                    </a>
+
+                                    {{-- Hapus --}}
+                                    <form method="POST"
+                                          action="{{ route('courses.destroy', $course) }}"
+                                          onsubmit="return confirm('Apakah kamu yakin ingin menghapus kursus ini?')">
+
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button type="submit"
+                                                class="btn-action btn-delete">
+                                            Hapus
+                                        </button>
+
+                                    </form>
+
+                                </div>
+                            </td>
+
                         </tr>
+
                     @empty
+
                         <tr>
-                            <td colspan="6" class="empty-course">
+                            <td colspan="7" class="empty-course">
                                 Belum ada data kursus.
                             </td>
                         </tr>
+
                     @endforelse
+
                 </tbody>
+
             </table>
+
         </div>
     </div>
 

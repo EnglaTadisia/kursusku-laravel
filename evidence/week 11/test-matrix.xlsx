@@ -1,0 +1,19 @@
+# TEST MATRIX – KURSUSKU
+
+| No | Fitur | Skenario Pengujian | Hasil yang Diharapkan | Status |
+|---|---|---|---|---|
+| 1 | Tambah Kursus | Mengisi semua data dengan benar | Data berhasil disimpan | Belum Diuji |
+| 2 | Tambah Kursus | Kode kursus kosong | Muncul pesan validasi | Belum Diuji |
+| 3 | Tambah Kursus | Kode kursus duplikat | Data ditolak | Belum Diuji |
+| 4 | Tambah Kursus | Nama kursus kosong | Muncul pesan validasi | Belum Diuji |
+| 5 | Validasi | Biaya diisi -1000 | Data ditolak | Belum Diuji |
+| 6 | Validasi | Kuota diisi 0 | Data ditolak | Belum Diuji |
+| 7 | Daftar Kursus | Membuka halaman daftar kursus | Data kursus ditampilkan | Belum Diuji |
+| 8 | Detail Kursus | Membuka detail kursus | Informasi kursus ditampilkan | Belum Diuji |
+| 9 | Edit Kursus | Mengubah data kursus | Perubahan berhasil disimpan | Belum Diuji |
+| 10 | Hapus Kursus | Menghapus salah satu kursus | Data berhasil dihapus | Belum Diuji |
+| 11 | Notifikasi | Setelah menambah kursus | Muncul pesan berhasil ditambahkan | Belum Diuji |
+| 12 | Notifikasi | Setelah mengedit kursus | Muncul pesan berhasil diperbarui | Belum Diuji |
+| 13 | Notifikasi | Setelah menghapus kursus | Muncul pesan berhasil dihapus | Belum Diuji |
+| 14 | Database | Melakukan refresh halaman | Data tetap tersimpan | Belum Diuji |
+

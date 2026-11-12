@@ -1,40 +1,25 @@
 <?php
 
-namespace Database\Seeders;
+namespace App\Models;
 
-use App\Models\Course;
-use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class CourseSeeder extends Seeder
+class Course extends Model
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
-    {
-        $courses = [
-            ['WEB-101', 'Web Dasar', 300000, 25, 'open'],
-            ['PHP-101', 'PHP Fundamental', 400000, 25, 'open'],
-            ['LRV-101', 'Laravel Dasar', 500000, 20, 'open'],
-            ['SQL-101', 'MySQL Dasar', 350000, 30, 'open'],
-            ['UI-101', 'Bootstrap UI', 300000, 25, 'draft'],
-            ['JS-101', 'JavaScript Dasar', 400000, 20, 'open'],
-            ['AJAX-101', 'jQuery dan Ajax', 450000, 20, 'draft'],
-            ['API-101', 'REST API Dasar', 550000, 18, 'closed'],
-        ];
+    use HasFactory;
 
-        foreach ($courses as $i => $item) {
-            Course::updateOrCreate(
-                ['code' => $item[0]],
-                [
-                    'name' => $item[1],
-                    'description' => 'Data latihan KursusKu.',
-                    'fee' => $item[2],
-                    'quota' => $item[3],
-                    'start_date' => now()->addDays(7 + ($i * 7))->toDateString(),
-                    'status' => $item[4],
-                ]
-            );
-        }
-    }
+    protected $fillable = [
+        'code',
+        'name',
+        'description',
+        'fee',
+        'quota',
+        'start_date',
+        'status',
+    ];
+
+    protected $casts = [
+        'start_date' => 'date',
+    ];
 }
