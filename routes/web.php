@@ -1,26 +1,17 @@
+
 <?php
 
-use App\Http\Controllers\CourseController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\EnrollmentController;
 
 // Route Beranda
 Route::get('/', [HomeController::class, 'index'])
     ->name('home');
 
-// Route halaman Pendaftaran
-Route::get('/pendaftaran', function () {
-    $courses = [
-        1 => ['name' => 'Web Dasar'],
-        2 => ['name' => 'PHP Dasar'],
-        3 => ['name' => 'Laravel Dasar'],
-    ];
-
-    return view('enrollments.create', compact('courses'));
-})->name('enrollments.create');
-
-// Route proses validasi form
+// Route proses validasi form pendaftaran lama
 Route::post('/pendaftaran/preview', function (Request $request) {
     $data = $request->validate([
         'name' => ['required', 'string', 'min:3', 'max:100'],
@@ -31,7 +22,7 @@ Route::post('/pendaftaran/preview', function (Request $request) {
     return back()
         ->with(
             'success',
-            'Form lolos validasi. Database akan ditambahkan pada pertemuan berikutnya.'
+            'Form lolos validasi.'
         )
         ->withInput();
 })->name('enrollments.preview');
@@ -58,4 +49,9 @@ Route::get('/courses/{course}/availability', function (int $course) {
     return response()->json($availability[$course]);
 })->name('courses.availability');
 
+// Route CRUD Course
 Route::resource('courses', CourseController::class);
+
+// Route Enrollment
+Route::resource('enrollments', EnrollmentController::class)
+    ->only(['index', 'create', 'store']);
