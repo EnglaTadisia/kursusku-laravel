@@ -2,21 +2,53 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\AuthController;
 
-// Route Beranda
+
+// ========================================
+// ROUTE BERANDA
+// ========================================
+
 Route::get('/', [HomeController::class, 'index'])
     ->name('home');
 
-// Route Pendaftaran
+
+// ========================================
+// ROUTE LOGIN
+// ========================================
+
+Route::middleware('guest')->group(function () {
+
+    // Menampilkan halaman login
+    Route::get('/login', [AuthController::class, 'login'])
+        ->name('login');
+
+    // Proses login
+    Route::post('/login', [AuthController::class, 'authenticate'])
+        ->name('login.process');
+
+});
+
+
+// ========================================
+// ROUTE PENDAFTARAN
+// ========================================
+
 Route::get('/pendaftaran', function () {
     return redirect()->route('enrollments.create');
 })->name('pendaftaran');
 
-// Route proses validasi form pendaftaran
+
+// ========================================
+// ROUTE VALIDASI FORM PENDAFTARAN
+// ========================================
+
 Route::post('/pendaftaran/preview', function (Request $request) {
+
     $data = $request->validate([
         'name' => ['required', 'string', 'min:3', 'max:100'],
         'email' => ['required', 'email'],
@@ -26,10 +58,16 @@ Route::post('/pendaftaran/preview', function (Request $request) {
     return back()
         ->with('success', 'Form lolos validasi.')
         ->withInput();
+
 })->name('enrollments.preview');
 
-// Route ketersediaan kursi
+
+// ========================================
+// ROUTE KETERSEDIAAN KURSI
+// ========================================
+
 Route::get('/courses/{course}/availability', function (int $course) {
+
     $availability = [
         1 => [
             'course' => 'Web Dasar',
@@ -48,11 +86,41 @@ Route::get('/courses/{course}/availability', function (int $course) {
     abort_unless(isset($availability[$course]), 404);
 
     return response()->json($availability[$course]);
+
 })->name('courses.availability');
 
-// Route CRUD Course
+
+// ========================================
+// ROUTE CRUD COURSE
+// ========================================
+
 Route::resource('courses', CourseController::class);
 
-// Route Enrollment
+
+// ========================================
+// ROUTE ENROLLMENT
+// ========================================
+
 Route::resource('enrollments', EnrollmentController::class)
     ->only(['index', 'create', 'store']);
+
+
+// ========================================
+// ROUTE HALAMAN AKUN SETELAH LOGIN
+// ========================================
+
+Route::middleware('auth')->group(function () {
+
+    // Informasi akun
+    Route::get('/akun', [AuthController::class, 'profile'])
+        ->name('account.profile');
+
+    // Ganti password
+    Route::put('/akun/password', [AuthController::class, 'changePassword'])
+        ->name('account.password');
+
+    // Logout
+    Route::post('/logout', [AuthController::class, 'logout'])
+        ->name('logout');
+
+});
