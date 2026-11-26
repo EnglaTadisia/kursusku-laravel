@@ -1,4 +1,3 @@
-
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -11,7 +10,12 @@ use App\Http\Controllers\EnrollmentController;
 Route::get('/', [HomeController::class, 'index'])
     ->name('home');
 
-// Route proses validasi form pendaftaran lama
+// Route Pendaftaran
+Route::get('/pendaftaran', function () {
+    return redirect()->route('enrollments.create');
+})->name('pendaftaran');
+
+// Route proses validasi form pendaftaran
 Route::post('/pendaftaran/preview', function (Request $request) {
     $data = $request->validate([
         'name' => ['required', 'string', 'min:3', 'max:100'],
@@ -20,14 +24,11 @@ Route::post('/pendaftaran/preview', function (Request $request) {
     ]);
 
     return back()
-        ->with(
-            'success',
-            'Form lolos validasi.'
-        )
+        ->with('success', 'Form lolos validasi.')
         ->withInput();
 })->name('enrollments.preview');
 
-// Route ketersediaan kursi (JSON untuk Ajax)
+// Route ketersediaan kursi
 Route::get('/courses/{course}/availability', function (int $course) {
     $availability = [
         1 => [

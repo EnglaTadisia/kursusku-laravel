@@ -10,27 +10,33 @@ use Illuminate\Validation\Rule;
 
 class EnrollmentController extends Controller
 {
-    // Menampilkan halaman tambah Enrollment
+    /**
+     * Menampilkan halaman tambah Enrollment.
+     */
     public function create()
     {
-        $participants = Participant::orderBy('name')->get();
+        // Mengambil data peserta
+        $participants = Participant::orderBy('name', 'asc')->get();
 
-        // Mengambil semua data kursus tanpa memfilter status
-        $courses = Course::orderBy('name')->get();
+        // Mengambil data kursus
+        $courses = Course::orderBy('name', 'asc')->get();
 
+        // Mengirim data ke halaman create
         return view('enrollments.create', compact(
             'participants',
             'courses'
         ));
     }
 
-    // Menyimpan data Enrollment
+    /**
+     * Menyimpan data Enrollment.
+     */
     public function store(Request $request)
     {
         $data = $request->validate([
             'participant_id' => [
                 'required',
-                'exists:participants,id'
+                'exists:participants,id',
             ],
 
             'course_id' => [
@@ -45,6 +51,18 @@ class EnrollmentController extends Controller
                 ),
             ],
         ], [
+            'participant_id.required' =>
+                'Nama peserta wajib dipilih.',
+
+            'participant_id.exists' =>
+                'Peserta tidak ditemukan.',
+
+            'course_id.required' =>
+                'Program kursus wajib dipilih.',
+
+            'course_id.exists' =>
+                'Kursus tidak ditemukan.',
+
             'course_id.unique' =>
                 'Peserta sudah terdaftar pada kursus tersebut.',
         ]);
@@ -57,7 +75,9 @@ class EnrollmentController extends Controller
             ->with('success', 'Enrollment berhasil disimpan.');
     }
 
-    // Menampilkan daftar Enrollment
+    /**
+     * Menampilkan daftar Enrollment.
+     */
     public function index()
     {
         $enrollments = Enrollment::with([

@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('title', 'Laporan Enrollment')
@@ -108,6 +107,7 @@
         font-weight: 600;
     }
 
+    /* EMPTY STATE */
     .empty-data {
         text-align: center !important;
         padding: 45px 15px !important;
@@ -118,6 +118,11 @@
         font-size: 38px;
         display: block;
         margin-bottom: 10px;
+    }
+
+    .empty-message {
+        color: #c52c7d;
+        font-weight: 600;
     }
 
     @media(max-width: 600px) {
@@ -137,7 +142,9 @@
 
 <div class="enrollment-wrapper">
 
+    {{-- JUDUL HALAMAN --}}
     <div class="page-heading">
+
         <div>
             <h2>Laporan Enrollment KursusKu</h2>
             <p>Kelola dan pantau data pendaftaran kursus.</p>
@@ -147,14 +154,17 @@
            class="btn-add-enrollment">
             + Tambah Enrollment
         </a>
+
     </div>
 
+    {{-- NOTIFIKASI BERHASIL --}}
     @if(session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
     @endif
 
+    {{-- TABEL ENROLLMENT --}}
     <div class="report-card">
 
         <div class="report-title">
@@ -162,6 +172,7 @@
         </div>
 
         <div class="table-responsive">
+
             <table class="enrollment-table">
 
                 <thead>
@@ -175,7 +186,10 @@
                 </thead>
 
                 <tbody>
+
+                    {{-- MENAMPILKAN DATA ENROLLMENT --}}
                     @forelse($enrollments as $enrollment)
+
                         <tr>
                             <td>{{ $loop->iteration }}</td>
 
@@ -197,17 +211,32 @@
                                 </span>
                             </td>
                         </tr>
+
+                    {{-- EMPTY STATE JIKA DATA TIDAK DITEMUKAN --}}
                     @empty
+
                         <tr>
                             <td colspan="5" class="empty-data">
+
                                 <span class="empty-icon">📋</span>
-                                Belum ada data enrollment.
+
+                                <div class="empty-message">
+                                    Tidak ada enrollment yang sesuai.
+                                </div>
+
+                                <div style="font-size: 13px; margin-top: 5px;">
+                                    Silakan tambahkan data enrollment terlebih dahulu.
+                                </div>
+
                             </td>
                         </tr>
+
                     @endforelse
+
                 </tbody>
 
             </table>
+
         </div>
 
     </div>

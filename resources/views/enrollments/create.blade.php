@@ -5,189 +5,216 @@
 
 @section('content')
 
+
 <style>
     .enroll-wrapper {
-        background: #fff8fc;
-        min-height: 85vh;
-        padding: 35px;
+        background: #fff5fa;
+        min-height: 88vh;
+        padding: 65px 25px;
     }
 
-    .enroll-top {
-        margin-bottom: 25px;
+    .enroll-main {
+        max-width: 710px;
+        margin: 0 auto;
     }
 
-    .enroll-top h2 {
-        font-size: 27px;
-        font-weight: 700;
-        color: #333;
-        margin-bottom: 5px;
-    }
-
-    .enroll-top p {
-        color: #888;
+    .enroll-back {
+        display: inline-block;
+        color: #df3190;
+        text-decoration: none;
         font-size: 14px;
-    }
-
-    .enroll-container {
-        display: grid;
-        grid-template-columns: 260px 1fr;
-        background: white;
-        border: 1px solid #f5dce9;
-        border-radius: 12px;
-        overflow: hidden;
-        max-width: 1000px;
-    }
-
-    .enroll-info {
-        background: #fce7f2;
-        padding: 30px 25px;
-    }
-
-    .enroll-info h3 {
-        color: #c52c7d;
-        font-size: 21px;
-        font-weight: 700;
-        margin-bottom: 15px;
-    }
-
-    .enroll-info p {
-        color: #79556a;
-        font-size: 14px;
-        line-height: 1.8;
-    }
-
-    .enroll-icon {
-        font-size: 55px;
+        font-weight: 600;
         margin-bottom: 20px;
     }
 
-    .enroll-form {
-        padding: 35px;
+    .enroll-back:hover {
+        color: #b91f70;
     }
 
-    .enroll-form h4 {
-        font-size: 19px;
-        font-weight: 700;
+    .enroll-heading {
         margin-bottom: 25px;
-        color: #333;
+    }
+
+    .enroll-heading h2 {
+        font-size: 27px;
+        font-weight: 800;
+        color: #51243e;
+        margin-bottom: 5px;
+    }
+
+    .enroll-heading p {
+        color: #91808a;
+        font-size: 14px;
+        margin: 0;
+    }
+
+    .enroll-card {
+        background: #ffffff;
+        border: 1px solid #f5dce9;
+        border-radius: 20px;
+        padding: 32px;
+        box-shadow: 0 12px 35px rgba(220, 49, 144, 0.08);
+    }
+
+    .enroll-icon {
+        width: 55px;
+        height: 55px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fde5f1;
+        border-radius: 17px;
+        font-size: 27px;
+        margin-bottom: 17px;
+    }
+
+    .enroll-card h3 {
+        font-size: 20px;
+        font-weight: 750;
+        color: #51243e;
+        margin-bottom: 5px;
+    }
+
+    .enroll-description {
+        color: #91808a;
+        font-size: 14px;
+        margin-bottom: 27px;
     }
 
     .enroll-label {
         display: block;
         font-size: 14px;
-        font-weight: 600;
-        color: #444;
-        margin-bottom: 8px;
+        font-weight: 650;
+        color: #59364a;
+        margin-bottom: 9px;
     }
 
     .enroll-input {
+        display: block;
         width: 100%;
-        height: 45px;
-        padding: 10px 14px;
-        border: 1px solid #e8d5df;
-        border-radius: 7px;
+        height: 44px;
+        padding: 0 14px;
+        border: 1px solid #ead8e2;
+        border-radius: 11px;
         background: #fff;
+        color: #51404a;
+        font-size: 14px;
         margin-bottom: 22px;
         outline: none;
-        font-size: 14px;
         box-sizing: border-box;
+        transition: 0.2s;
     }
 
     .enroll-input:focus {
-        border-color: #e53b91;
-        box-shadow: 0 0 0 3px #fde5f1;
-    }
-
-    .enroll-actions {
-        border-top: 1px solid #f1e5eb;
-        padding-top: 22px;
-        display: flex;
-        justify-content: flex-end;
-        gap: 10px;
-    }
-
-    .btn-enroll-back {
-        padding: 11px 20px;
-        border-radius: 7px;
-        background: white;
-        border: 1px solid #e4cbd8;
-        color: #666;
-        text-decoration: none;
-        font-size: 14px;
-    }
-
-    .btn-enroll-save {
-        padding: 11px 23px;
-        border: none;
-        border-radius: 7px;
-        background: #df3190;
-        color: white;
-        font-weight: 600;
-        font-size: 14px;
-        cursor: pointer;
-    }
-
-    .btn-enroll-save:hover {
-        background: #c52379;
+        border-color: #df3190;
+        box-shadow: 0 0 0 3px rgba(223, 49, 144, 0.12);
     }
 
     .enroll-error {
         background: #fff0f0;
         color: #b42318;
         border: 1px solid #f5c2c7;
-        padding: 12px 18px;
-        border-radius: 7px;
-        margin-bottom: 20px;
-        font-size: 14px;
+        padding: 13px 17px;
+        border-radius: 10px;
+        margin-bottom: 22px;
+        font-size: 13px;
     }
 
-    @media(max-width: 700px) {
+    .enroll-error ul {
+        margin: 0;
+        padding-left: 20px;
+    }
+
+    .enroll-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 5px;
+    }
+
+    .btn-enroll-back {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 20px;
+        border-radius: 11px;
+        background: #fceaf3;
+        color: #a52d6c;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 650;
+        border: none;
+        transition: 0.2s;
+    }
+
+    .btn-enroll-back:hover {
+        background: #f8d8e8;
+        color: #8e2059;
+    }
+
+    .btn-enroll-save {
+        flex: 1;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 11px;
+        background: linear-gradient(100deg, #df3190, #f45b9d);
+        color: white;
+        font-weight: 700;
+        font-size: 13px;
+        cursor: pointer;
+        transition: 0.2s;
+        box-shadow: 0 5px 13px rgba(223, 49, 144, 0.20);
+    }
+
+    .btn-enroll-save:hover {
+        background: linear-gradient(100deg, #c52379, #e83f8b);
+        transform: translateY(-1px);
+    }
+
+    @media(max-width: 600px) {
         .enroll-wrapper {
-            padding: 18px;
+            padding: 35px 16px;
         }
 
-        .enroll-container {
-            grid-template-columns: 1fr;
+        .enroll-card {
+            padding: 23px 19px;
         }
 
-        .enroll-info {
-            padding: 20px;
-        }
-
-        .enroll-form {
-            padding: 22px;
+        .enroll-heading h2 {
+            font-size: 23px;
         }
     }
 </style>
 
+
 <div class="enroll-wrapper">
 
-    <div class="enroll-top">
-        <h2>Tambah Enrollment</h2>
-        <p>Beranda / Enrollment / Tambah Enrollment</p>
-    </div>
+    <div class="enroll-main">
 
-    <div class="enroll-container">
+        <a href="{{ route('enrollments.index') }}"
+           class="enroll-back">
+            ← Kembali ke Laporan
+        </a>
 
-        <div class="enroll-info">
-            <div class="enroll-icon">📚</div>
-
-            <h3>Pendaftaran Kursus</h3>
-
-            <p>
-                Silakan lengkapi formulir pendaftaran
-                dengan memilih peserta dan kursus
-                yang tersedia pada sistem KursusKu.
-            </p>
+        <div class="enroll-heading">
+            <h2>Tambah Enrollment</h2>
+            <p>Daftarkan peserta ke program kursus pilihan di KursusKu.</p>
         </div>
 
-        <div class="enroll-form">
+        <div class="enroll-card">
 
-            <h4>Informasi Pendaftaran</h4>
+            <div class="enroll-icon">
+                📚
+            </div>
+
+            <h3>Form Pendaftaran Kursus</h3>
+
+            <p class="enroll-description">
+                Lengkapi informasi peserta dan pilih kursus yang ingin diikuti.
+            </p>
 
             @if ($errors->any())
                 <div class="enroll-error">
-                    <ul style="margin: 0; padding-left: 20px;">
+                    <ul>
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
                         @endforeach
@@ -198,10 +225,17 @@
             <form action="{{ route('enrollments.store') }}" method="POST">
                 @csrf
 
-                <label class="enroll-label">Participant</label>
+                <label class="enroll-label">
+                    Nama Participant
+                </label>
 
-                <select name="participant_id" class="enroll-input" required>
-                    <option value="">-- Pilih Participant --</option>
+                <select name="participant_id"
+                        class="enroll-input"
+                        required>
+
+                    <option value="">
+                        -- Pilih Participant --
+                    </option>
 
                     @foreach ($participants as $participant)
                         <option value="{{ $participant->id }}"
@@ -209,12 +243,20 @@
                             {{ $participant->name }}
                         </option>
                     @endforeach
+
                 </select>
 
-                <label class="enroll-label">Course</label>
+                <label class="enroll-label">
+                    Program Kursus
+                </label>
 
-                <select name="course_id" class="enroll-input" required>
-                    <option value="">-- Pilih Course --</option>
+                <select name="course_id"
+                        class="enroll-input"
+                        required>
+
+                    <option value="">
+                        -- Pilih Course --
+                    </option>
 
                     @foreach ($courses as $course)
                         <option value="{{ $course->id }}"
@@ -222,23 +264,27 @@
                             {{ $course->name }}
                         </option>
                     @endforeach
+
                 </select>
 
                 <div class="enroll-actions">
 
                     <a href="{{ route('enrollments.index') }}"
                        class="btn-enroll-back">
-                        Kembali
+                        Batal
                     </a>
 
-                    <button type="submit" class="btn-enroll-save">
-                        + Simpan Enrollment
+                    <button type="submit"
+                            class="btn-enroll-save">
+                        Simpan Enrollment
                     </button>
 
                 </div>
+
             </form>
 
         </div>
+
     </div>
 
 </div>

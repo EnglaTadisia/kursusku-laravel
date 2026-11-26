@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('title', 'Daftar Kursus')
@@ -60,130 +59,82 @@
         box-shadow: 0 4px 15px rgba(200, 70, 130, .07);
     }
 
-    .course-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 0;
+    .course-filter {
+        background: #fff8fc;
+        border: 1px solid #f5dce9;
+        border-radius: 11px;
+        padding: 15px;
+        margin-bottom: 20px;
     }
 
-    .course-table thead th {
-        background: #fff0f7;
-        color: #c52b7d;
+    .course-filter label {
+        display: block;
+        color: #a82b6d;
         font-size: 13px;
         font-weight: 700;
-        padding: 15px 12px;
-        border-bottom: 1px solid #f3d6e5;
-        white-space: nowrap;
+        margin-bottom: 7px;
     }
 
-    .course-table tbody td {
-        padding: 15px 12px;
-        border-bottom: 1px solid #f3edf1;
-        font-size: 14px;
-        vertical-align: middle;
+    .course-filter .form-control,
+    .course-filter .form-select {
+        border: 1px solid #efc6dc;
+        border-radius: 8px;
+        padding: 10px 12px;
+        font-size: 13px;
+        color: #493b48;
+        background-color: white;
+        min-height: 42px;
     }
 
-    .course-table tbody tr:hover {
-        background: #fff8fb;
+    .course-filter .form-control:focus,
+    .course-filter .form-select:focus {
+        border-color: #df3190;
+        box-shadow: 0 0 0 3px rgba(223, 49, 144, .12);
     }
 
-    .course-table tbody tr:last-child td {
-        border-bottom: none;
-    }
-
-    .code-label {
-        display: inline-block;
-        background: #ffe7f2;
-        color: #cf287f;
-        padding: 6px 10px;
-        border-radius: 6px;
-        font-weight: 700;
-        font-size: 12px;
-    }
-
-    .name-label {
-        font-weight: 600;
-        color: #403448;
-    }
-
-    .fee-label {
-        font-weight: 700;
-        color: #df3190;
-        white-space: nowrap;
-    }
-
-    .status-label {
-        display: inline-block;
-        padding: 6px 12px;
-        border-radius: 20px;
-        font-size: 12px;
-        font-weight: 600;
-    }
-
-    .status-open {
-        background: #e1f7e9;
-        color: #25834b;
-    }
-
-    .status-draft {
-        background: #e7efff;
-        color: #3465bd;
-    }
-
-    .status-closed {
-        background: #ffe6e6;
-        color: #cf4141;
-    }
-
-    .status-other {
-        background: #f0eaf0;
-        color: #66566a;
-    }
-
-    /* Tombol Detail, Edit, dan Hapus */
-    .action-buttons {
-        display: flex;
-        gap: 6px;
-        align-items: center;
-        flex-wrap: wrap;
-    }
-
-    .btn-action {
-        display: inline-block;
-        padding: 7px 10px;
-        border-radius: 6px;
-        text-decoration: none;
-        font-size: 12px;
-        font-weight: 600;
+    .btn-search {
+        background: #df3190;
+        color: white;
         border: none;
-        cursor: pointer;
+        border-radius: 8px;
+        padding: 10px 19px;
+        font-size: 13px;
+        font-weight: 600;
+        min-height: 42px;
         transition: .2s;
-        white-space: nowrap;
     }
 
-    .btn-detail {
-        background: #e7efff;
-        color: #3465bd;
+    .btn-search:hover {
+        background: #c91e7b;
+        color: white;
     }
 
-    .btn-edit {
-        background: #fff0d9;
-        color: #b7791f;
+    .btn-reset {
+        background: white;
+        color: #c52b7d;
+        border: 1px solid #e9a9ca;
+        border-radius: 8px;
+        padding: 10px 17px;
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+        min-height: 42px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: .2s;
     }
 
-    .btn-delete {
-        background: #ffe6e6;
-        color: #cf4141;
+    .btn-reset:hover {
+        background: #ffe7f2;
+        color: #b51f70;
     }
 
-    .btn-action:hover {
-        opacity: .8;
-    }
-
-    .empty-course {
-        text-align: center;
-        color: #999;
-        padding: 35px !important;
+    .filter-title {
+        color: #c52b7d;
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 13px;
     }
 
     .course-footer {
@@ -212,6 +163,10 @@
         .course-box {
             padding: 10px;
         }
+
+        .course-filter {
+            padding: 12px;
+        }
     }
 </style>
 @endpush
@@ -219,22 +174,24 @@
 @section('content')
 
 <div class="course-page">
+
     {{-- NOTIFIKASI BERHASIL --}}
-@if (session('success'))
-    <div class="alert alert-success alert-dismissible fade show"
-         role="alert"
-         style="border-radius: 12px; border: 1px solid #f3c1d9; background: #fff0f7; color: #bd2878;">
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show"
+             role="alert"
+             style="border-radius: 12px; border: 1px solid #f3c1d9; background: #fff0f7; color: #bd2878;">
 
-        <strong>✓ Berhasil!</strong>
-        {{ session('success') }}
+            <strong>✓ Berhasil!</strong>
+            {{ session('success') }}
 
-        <button type="button"
-                class="btn-close"
-                data-bs-dismiss="alert">
-        </button>
-    </div>
-@endif
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert">
+            </button>
+        </div>
+    @endif
 
+    {{-- JUDUL HALAMAN --}}
     <div class="course-heading">
         <div>
             <h1>Daftar <span>Kursus</span></h1>
@@ -248,119 +205,195 @@
 
     <div class="course-box">
 
-        <div class="table-responsive">
+        {{-- FORM SEARCH DAN FILTER --}}
+        <div class="course-filter">
 
-            <table class="course-table">
+            <div class="filter-title">
+                🔍 Pencarian dan Filter Kursus
+            </div>
 
-                <thead>
-                    <tr>
-                        <th>Kode</th>
-                        <th>Nama Kursus</th>
-                        <th>Biaya</th>
-                        <th>Kuota</th>
-                        <th>Tanggal Mulai</th>
-                        <th>Status</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
+            <form method="GET"
+                  action="{{ route('courses.index') }}"
+                  id="course-search-form"
+                  class="row g-3 align-items-end">
 
-                <tbody>
+                {{-- INPUT PENCARIAN --}}
+                <div class="col-md-6">
+                    <label for="live-search">Cari Kursus</label>
 
-                    @forelse ($courses as $course)
+                    <input
+                        id="live-search"
+                        type="search"
+                        name="q"
+                        value="{{ $search ?? request('q') }}"
+                        class="form-control"
+                        placeholder="Cari kode atau nama kursus">
+                </div>
 
-                        <tr>
-                            <td>
-                                <span class="code-label">
-                                    {{ $course->code }}
-                                </span>
-                            </td>
+                {{-- FILTER STATUS --}}
+                <div class="col-md-3">
+                    <label for="status-filter">Filter Status</label>
 
-                            <td class="name-label">
-                                {{ $course->name }}
-                            </td>
+                    <select
+                        id="status-filter"
+                        name="status"
+                        class="form-select">
 
-                            <td class="fee-label">
-                                Rp {{ number_format($course->fee, 0, ',', '.') }}
-                            </td>
+                        <option value="">Semua Status</option>
 
-                            <td>{{ $course->quota }}</td>
+                        <option value="open"
+                            @selected(($status ?? request('status')) == 'open')>
+                            Open
+                        </option>
 
-                            <td>
-                                {{ $course->start_date->format('d/m/Y') }}
-                            </td>
+                        <option value="closed"
+                            @selected(($status ?? request('status')) == 'closed')>
+                            Closed
+                        </option>
 
-                            <td>
-                                @php
-                                    $statusClass = match(strtolower($course->status)) {
-                                        'open' => 'status-open',
-                                        'draft' => 'status-draft',
-                                        'closed' => 'status-closed',
-                                        default => 'status-other',
-                                    };
-                                @endphp
+                        <option value="draft"
+                            @selected(($status ?? request('status')) == 'draft')>
+                            Draft
+                        </option>
 
-                                <span class="status-label {{ $statusClass }}">
-                                    {{ ucfirst($course->status) }}
-                                </span>
-                            </td>
+                    </select>
+                </div>
 
-                            {{-- Tombol Aksi --}}
-                            <td>
-                                <div class="action-buttons">
+                {{-- TOMBOL CARI DAN RESET --}}
+                <div class="col-md-3 d-flex gap-2">
 
-                                    {{-- Detail --}}
-                                    <a href="{{ route('courses.show', $course) }}"
-                                       class="btn-action btn-detail">
-                                        Detail
-                                    </a>
+                    <button type="submit" class="btn-search">
+                        Cari
+                    </button>
 
-                                    {{-- Edit --}}
-                                    <a href="{{ route('courses.edit', $course) }}"
-                                       class="btn-action btn-edit">
-                                        Edit
-                                    </a>
+                    <a href="{{ route('courses.index') }}"
+                       class="btn-reset"
+                       id="reset-course">
+                        Reset
+                    </a>
 
-                                    {{-- Hapus --}}
-                                    <form method="POST"
-                                          action="{{ route('courses.destroy', $course) }}"
-                                          onsubmit="return confirm('Apakah kamu yakin ingin menghapus kursus ini?')">
+                </div>
 
-                                        @csrf
-                                        @method('DELETE')
-
-                                        <button type="submit"
-                                                class="btn-action btn-delete">
-                                            Hapus
-                                        </button>
-
-                                    </form>
-
-                                </div>
-                            </td>
-
-                        </tr>
-
-                    @empty
-
-                        <tr>
-                            <td colspan="7" class="empty-course">
-                                Belum ada data kursus.
-                            </td>
-                        </tr>
-
-                    @endforelse
-
-                </tbody>
-
-            </table>
-
+            </form>
         </div>
+
+        {{-- HASIL PENCARIAN DAN TABEL --}}
+        <div id="course-results">
+            @include('courses._results')
+        </div>
+
     </div>
 
+    {{-- FOOTER --}}
     <div class="course-footer">
         Belajar Lebih Mudah, Raih Masa Depan Lebih Baik.
     </div>
 
 </div>
+
+{{-- AJAX SEARCH --}}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const form = document.getElementById('course-search-form');
+    const results = document.getElementById('course-results');
+    const resetButton = document.getElementById('reset-course');
+
+    if (!form || !results) return;
+
+    const searchUrl = form.action;
+
+    // FUNGSI MEMUAT DATA KURSUS
+    function loadCourses(url) {
+
+        const requestUrl = new URL(url, window.location.origin);
+
+        requestUrl.searchParams.set('partial', '1');
+
+        results.style.opacity = '0.5';
+
+        fetch(requestUrl.toString(), {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Gagal memuat data kursus.');
+            }
+
+            return response.text();
+        })
+        .then(html => {
+
+            results.innerHTML = html;
+            results.style.opacity = '1';
+
+            const visibleUrl = new URL(requestUrl);
+
+            visibleUrl.searchParams.delete('partial');
+
+            window.history.pushState(
+                {},
+                '',
+                visibleUrl.toString()
+            );
+        })
+        .catch(error => {
+
+            results.style.opacity = '1';
+
+            console.error(error);
+
+            alert('Terjadi kesalahan saat memuat data kursus.');
+        });
+    }
+
+    // PENCARIAN DAN FILTER
+    form.addEventListener('submit', function (event) {
+
+        event.preventDefault();
+
+        const params = new URLSearchParams(
+            new FormData(form)
+        );
+
+        loadCourses(
+            searchUrl + '?' + params.toString()
+        );
+    });
+
+    // KLIK PAGINATION
+    results.addEventListener('click', function (event) {
+
+        const link = event.target.closest('.pagination a');
+
+        if (!link) return;
+
+        event.preventDefault();
+
+        loadCourses(link.href);
+    });
+
+    // TOMBOL RESET
+    resetButton.addEventListener('click', function (event) {
+
+        event.preventDefault();
+
+        form.reset();
+
+        loadCourses(searchUrl);
+    });
+
+    // TOMBOL KEMBALI DAN MAJU BROWSER
+    window.addEventListener('popstate', function () {
+
+        const url = new URL(window.location.href);
+
+        loadCourses(url.toString());
+    });
+
+});
+</script>
 
 @endsection
